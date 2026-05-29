@@ -1,0 +1,168 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_gamemgr"]
+[ext_resource type="Script" path="res://scripts/ui_manager.gd" id="2_uimgr"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/enemy_spawner.tscn" id="4_spawner"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_healthbg"]
+bg_color = Color(0.2, 0.2, 0.2, 0.8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_healthfg"]
+bg_color = Color(0.8, 0.2, 0.2, 1)
+
+[node name="Main" type="Node2D"]
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_gamemgr")
+
+[node name="UIManager" type="CanvasLayer" parent="GameManager"]
+script = ExtResource("2_uimgr")
+
+[node name="HUD" type="Control" parent="GameManager/UIManager"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="GameManager/UIManager/HUD"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 220.0
+offset_bottom = 50.0
+theme_override_styles/background = SubResource("StyleBoxFlat_healthbg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_healthfg")
+value = 100.0
+
+[node name="Label" type="Label" parent="GameManager/UIManager/HUD/HealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100 / 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExpBar" type="ProgressBar" parent="GameManager/UIManager/HUD"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 60.0
+offset_right = 220.0
+offset_bottom = 80.0
+value = 0.0
+
+[node name="Label" type="Label" parent="GameManager/UIManager/HUD/ExpBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0 / 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelLabel" type="Label" parent="GameManager/UIManager/HUD"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 90.0
+offset_right = 100.0
+offset_bottom = 120.0
+text = "Lv.1"
+
+[node name="TimeLabel" type="Label" parent="GameManager/UIManager/HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 50.0
+grow_horizontal = 0
+text = "00:00"
+horizontal_alignment = 2
+
+[node name="LevelUpMessage" type="Label" parent="GameManager/UIManager"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "升级！"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverScreen" type="Control" parent="GameManager/UIManager"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="GameManager/UIManager/GameOverScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="Label" type="Label" parent="GameManager/UIManager/GameOverScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "游戏结束"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="GameManager/UIManager/GameOverScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = 20.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "重新开始"
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(640, 360)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, 0)
+anchor_mode = 1
+
+[node name="EnemySpawner" parent="." instance=ExtResource("4_spawner")]
+
+[connection signal="pressed" from="GameManager/UIManager/GameOverScreen/RestartButton" to="GameManager/UIManager" method="_on_restart_button_pressed"]

@@ -1,0 +1,227 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/overworld_manager.gd" id="1_overworld"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.15, 0.15, 0.2, 0.95)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.4, 0.4, 0.5, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Overworld" type="Node2D"]
+script = ExtResource("1_overworld")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.1, 0.15, 0.2, 1)
+
+[node name="Title" type="Label" parent="Background"]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 1280.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 48
+text = "🏰 冒险者营地"
+horizontal_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GoldLabel" type="Label" parent="CanvasLayer"]
+offset_left = 1100.0
+offset_top = 20.0
+offset_right = 1260.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 24
+text = "💰 1000"
+horizontal_alignment = 2
+
+[node name="CharacterSelectUI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/CharacterSelectUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -250.0
+offset_right = 500.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Title" type="Label" parent="CanvasLayer/CharacterSelectUI/Panel"]
+layout_mode = 0
+offset_top = 20.0
+offset_right = 1000.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 32
+text = "选择你的角色"
+horizontal_alignment = 1
+
+[node name="CharacterGrid" type="GridContainer" parent="CanvasLayer/CharacterSelectUI/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -100.0
+offset_right = 450.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5
+
+[node name="warriorButton" type="Button" parent="CanvasLayer/CharacterSelectUI/Panel/CharacterGrid"]
+custom_minimum_size = Vector2(160, 200)
+layout_mode = 2
+text = "战士
+高血量近战"
+
+[node name="archerButton" type="Button" parent="CanvasLayer/CharacterSelectUI/Panel/CharacterGrid"]
+custom_minimum_size = Vector2(160, 200)
+layout_mode = 2
+text = "弓箭手
+💰 500"
+
+[node name="mageButton" type="Button" parent="CanvasLayer/CharacterSelectUI/Panel/CharacterGrid"]
+custom_minimum_size = Vector2(160, 200)
+layout_mode = 2
+text = "法师
+💰 1000"
+
+[node name="assassinButton" type="Button" parent="CanvasLayer/CharacterSelectUI/Panel/CharacterGrid"]
+custom_minimum_size = Vector2(160, 200)
+layout_mode = 2
+text = "刺客
+💰 2000"
+
+[node name="paladinButton" type="Button" parent="CanvasLayer/CharacterSelectUI/Panel/CharacterGrid"]
+custom_minimum_size = Vector2(160, 200)
+layout_mode = 2
+text = "圣骑士
+💰 5000"
+
+[node name="Hint" type="Label" parent="CanvasLayer/CharacterSelectUI/Panel"]
+layout_mode = 0
+offset_top = 420.0
+offset_right = 1000.0
+offset_bottom = 470.0
+theme_override_font_sizes/font_size = 18
+text = "点击已解锁的角色直接选择 | 点击未解锁的角色消耗金币解锁"
+horizontal_alignment = 1
+
+[node name="DungeonSelectUI" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/DungeonSelectUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -250.0
+offset_right = 500.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Title" type="Label" parent="CanvasLayer/DungeonSelectUI/Panel"]
+layout_mode = 0
+offset_top = 20.0
+offset_right = 1000.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 32
+text = "选择地下城"
+horizontal_alignment = 1
+
+[node name="DungeonGrid" type="GridContainer" parent="CanvasLayer/DungeonSelectUI/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -100.0
+offset_right = 450.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5
+
+[node name="forestButton" type="Button" parent="CanvasLayer/DungeonSelectUI/Panel/DungeonGrid"]
+custom_minimum_size = Vector2(160, 180)
+layout_mode = 2
+text = "🌲 蝙蝠洞穴
+清新森林风格"
+
+[node name="iceButton" type="Button" parent="CanvasLayer/DungeonSelectUI/Panel/DungeonGrid"]
+custom_minimum_size = Vector2(160, 180)
+layout_mode = 2
+text = "❄️ 冰雪洞窟
+像素寒冷风格"
+
+[node name="volcanoButton" type="Button" parent="CanvasLayer/DungeonSelectUI/Panel/DungeonGrid"]
+custom_minimum_size = Vector2(160, 180)
+layout_mode = 2
+text = "🔥 火山熔岩洞
+水墨火焰风格"
+
+[node name="castleButton" type="Button" parent="CanvasLayer/DungeonSelectUI/Panel/DungeonGrid"]
+custom_minimum_size = Vector2(160, 180)
+layout_mode = 2
+text = "💀 幽灵城堡
+剪影暗黑风格"
+
+[node name="dragonButton" type="Button" parent="CanvasLayer/DungeonSelectUI/Panel/DungeonGrid"]
+custom_minimum_size = Vector2(160, 180)
+layout_mode = 2
+text = "🐉 龙穴
+史诗油画风格"
+
+[node name="BackButton" type="Button" parent="CanvasLayer/DungeonSelectUI/Panel"]
+layout_mode = 0
+offset_left = 420.0
+offset_top = 420.0
+offset_right = 580.0
+offset_bottom = 470.0
+text = "← 返回角色选择"
+
+[connection signal="pressed" from="CanvasLayer/CharacterSelectUI/Panel/CharacterGrid/warriorButton" to="." method="_on_character_selected" binds= ["warrior"]]
+[connection signal="pressed" from="CanvasLayer/CharacterSelectUI/Panel/CharacterGrid/archerButton" to="." method="_on_character_selected" binds= ["archer"]]
+[connection signal="pressed" from="CanvasLayer/CharacterSelectUI/Panel/CharacterGrid/mageButton" to="." method="_on_character_selected" binds= ["mage"]]
+[connection signal="pressed" from="CanvasLayer/CharacterSelectUI/Panel/CharacterGrid/assassinButton" to="." method="_on_character_selected" binds= ["assassin"]]
+[connection signal="pressed" from="CanvasLayer/CharacterSelectUI/Panel/CharacterGrid/paladinButton" to="." method="_on_character_selected" binds= ["paladin"]]
+[connection signal="pressed" from="CanvasLayer/DungeonSelectUI/Panel/DungeonGrid/forestButton" to="." method="_on_dungeon_selected" binds= ["forest"]]
+[connection signal="pressed" from="CanvasLayer/DungeonSelectUI/Panel/DungeonGrid/iceButton" to="." method="_on_dungeon_selected" binds= ["ice"]]
+[connection signal="pressed" from="CanvasLayer/DungeonSelectUI/Panel/DungeonGrid/volcanoButton" to="." method="_on_dungeon_selected" binds= ["volcano"]]
+[connection signal="pressed" from="CanvasLayer/DungeonSelectUI/Panel/DungeonGrid/castleButton" to="." method="_on_dungeon_selected" binds= ["castle"]]
+[connection signal="pressed" from="CanvasLayer/DungeonSelectUI/Panel/DungeonGrid/dragonButton" to="." method="_on_dungeon_selected" binds= ["dragon"]]
+[connection signal="pressed" from="CanvasLayer/DungeonSelectUI/Panel/BackButton" to="." method="_on_back_to_character"]
